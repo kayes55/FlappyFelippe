@@ -26,6 +26,23 @@ class AnimationComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        
+        if let player = entity as? Player {
+            if player.movementAllowed {
+                startAnimation()
+            } else {
+                stopAnimation()
+            }
+        }
+    }
+    
+    func startAnimation() {
+        if !spriteComponent.node.hasActions() {
+            let playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.07)
+            spriteComponent.node.run(SKAction.repeatForever(playerAnimation))
+        }
+    }
+    
+    func stopAnimation() {
+        spriteComponent.node.removeAllActions()
     }
 }

@@ -21,6 +21,8 @@ class PlayingState: GKState {
         scene.startSpawning()
         
         scene.player.movementAllowed = true
+        
+        scene.player.animationComponent.startAnimation()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

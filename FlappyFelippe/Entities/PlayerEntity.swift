@@ -14,6 +14,9 @@ class Player: GKEntity {
     var spriteComponent: SpriteComponent!
     var movementComponent: MovementComponent!
     
+    var animationComponent: AnimationComponent!
+    var numberOfFrames = 3
+    
     //temporary flag; will be replaced with player state machine later
     var movementAllowed: Bool = false
     
@@ -26,6 +29,19 @@ class Player: GKEntity {
         
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)
+        
+        //create textures and add to player
+        var textures: Array<SKTexture> = []
+        for i in 0..<numberOfFrames {
+            textures.append(SKTexture(imageNamed: "Bird\(i)"))
+        }
+        
+        for i in stride(from: numberOfFrames, to: 0, by: -1) {
+            textures.append(SKTexture(imageNamed: "Bird\(i)"))
+        }
+        
+        animationComponent = AnimationComponent(entity: self, textures: textures)
+        addComponent(animationComponent)
         
         // Add Physics
         //MARK:- Physics done by this site: http://insyncapp.net/SKPhysicsBodyPathGenerator.html

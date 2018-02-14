@@ -14,6 +14,7 @@ enum Layer: CGFloat {
     case Obstacle
     case Foreground
     case Player
+    case UI
 }
 
 struct PhysicsCategory {
@@ -53,7 +54,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameOverState(scene: self)
         ])
     
+    var scoreLabel: SKLabelNode!
+    var score = 0
+    
+    var fontName = "AmericanTypewriter-Bold"
+    var margin: CGFloat = 20.0
+    
     let popAction = SKAction.playSoundFileNamed("pop.wav", waitForCompletion: false)
+    let coinAction = SKAction.playSoundFileNamed("coin.wav", waitForCompletion: false)
     
     override func didMove(to view: SKView) {
         
@@ -64,6 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setUpBackground()
         setUpForeground()
         setUpPlayer()
+        setUpScoreLabel()
         
 //        startSpawning()
         
@@ -113,6 +122,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.movementComponent.playableStart = playableStart
     }
     
+    func setUpScoreLabel() {
+        scoreLabel = SKLabelNode(fontNamed: fontName)
+        scoreLabel.position = CGPoint(x: (view?.frame.width)!/2, y: (view?.frame.height)! - 100)
+        scoreLabel.fontColor = SKColor(red: 101.0/255.0, green: 71.0/255.0, blue: 73.0/255.0, alpha: 1.0)
+        scoreLabel.verticalAlignmentMode = .top
+        scoreLabel.zPosition = Layer.UI.rawValue
+        
+        scoreLabel.text = "\(score)"
+        
+        worldNode.addChild(scoreLabel)
+    }
+    
     func startSpawning() {
         let firstDelay = SKAction.wait(forDuration: firstSpawnDelay)
         let spawn = SKAction.run(spawnObstacle)
@@ -139,6 +160,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let obstacleNode = obstacle.spriteComponent.node
         obstacleNode.zPosition = Layer.Obstacle.rawValue
         obstacleNode.name = "obstacle"
+        obstacleNode.userData = NSMutableDictionary()
         return obstacle.spriteComponent.node
     }
     
@@ -229,6 +251,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Pre-Entity Updates
         player.update(deltaTime: deltaTime)
+    }
+    
+    func updateScore() {
+        worldNode.enumerateChildNodes(withName: "obstacle") { (node, stop) in
+            if let obstacle = node as? SKSpriteNode {
+                if let passed = obstacle.userData?["Passed"] as? NSNumber {
+                    if passed.boolValue {
+                        return
+                    }
+                }
+                if self.player.spriteComponent.node.position.x > obstacle.position.x + obstacle.size.width/2 {
+                    self.score += 1
+                    self.scoreLabel.text = "\(self.score/2)"
+                    
+                    obstacle.userData?["Passed"] = NSNumber(value: true)
+                    self.run(self.coinAction)
+                    
+                }
+            }
+        }
     }
     
     func updateForeground() {

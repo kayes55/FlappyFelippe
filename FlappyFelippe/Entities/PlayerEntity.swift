@@ -14,6 +14,9 @@ class Player: GKEntity {
     var spriteComponent: SpriteComponent!
     var movementComponent: MovementComponent!
     
+    //temporary flag; will be replaced with player state machine later
+    var movementAllowed: Bool = false
+    
     init(imageName: String) {
         super.init()
         

@@ -23,6 +23,8 @@ class MainMenuState: GKState {
         scene.setUpPlayer()
         
         showMainMenu()
+        
+        scene.player.movementAllowed = false
     }
     
     override func willExit(to nextState: GKState) {

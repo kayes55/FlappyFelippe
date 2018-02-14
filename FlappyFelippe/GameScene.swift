@@ -215,7 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case is TutorialState:
             gameState.enter(PlayingState.self)
         case is PlayingState:
-            player.movementComponent.applyImpulse()
+            player.movementComponent.applyImpulse(lastUpdateTime: lastUpdateTimeInterval)
         case is GameOverState:
             restartGame(stateClass: TutorialState.self)
         default:

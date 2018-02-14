@@ -16,6 +16,16 @@ class MovementComponent: GKComponent {
     var playableStart:CGFloat = 0.0
     let impulse:CGFloat = 400.0
     
+    //Adding some properties for Angular animation
+    var velocityModifier: CGFloat = 1000.0
+    var angularVelocity: CGFloat = 0.0
+    let minDegrees: CGFloat = -90
+    let maxDegrees: CGFloat = 25
+    
+    //screen touch time detection
+    var lastTouchTime: TimeInterval = 0
+    var lastTouchY: CGFloat = 0.0
+    
     init(entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)
         
@@ -26,8 +36,13 @@ class MovementComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func applyImpulse() {
+    //MARK: Modifying applyImpulse
+    func applyImpulse(lastUpdateTime: TimeInterval) {
         velocity = CGPoint(x: 0.0, y: impulse)
+        
+        angularVelocity = velocityModifier.degreesToRadians()
+        lastTouchTime = lastUpdateTime
+        lastTouchY = spriteComponent.node.position.y
     }
     
     func applyMovement (_ seconds: TimeInterval) {
@@ -40,6 +55,16 @@ class MovementComponent: GKComponent {
         //Apply velocity
         let velocityStep = velocity * CGFloat(seconds)
         spriteNode.position += velocityStep
+        
+        //After Modifying applyImpulse, we have to implement this code
+        if spriteNode.position.y < lastTouchY {
+            angularVelocity = -velocityModifier.degreesToRadians()
+        }
+        
+        //Rotate Felipe
+        let angularStep = angularVelocity * CGFloat(seconds)
+        spriteNode.zRotation += angularStep
+        spriteNode.zRotation = min(max(spriteNode.zRotation, minDegrees.degreesToRadians()), maxDegrees.degreesToRadians())
         
         //Temporary ground hit
         if spriteNode.position.y - spriteNode.size.height/2 < playableStart {

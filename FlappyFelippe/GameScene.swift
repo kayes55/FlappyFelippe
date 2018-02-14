@@ -218,22 +218,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: - Game Play
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        player.movementComponent.applyImpulse()
         
-        if gameState.currentState is PlayingState {
+        switch gameState.currentState {
+        case is MainMenuState:
+            restartGame(stateClass: TutorialState.self)
+        case is TutorialState:
+            gameState.enter(PlayingState.self)
+        case is PlayingState:
             player.movementComponent.applyImpulse()
-        } else if gameState.currentState is GameOverState {
-            //restartGame()
+        case is GameOverState:
+            restartGame(stateClass: TutorialState.self)
+        default:
+            break
+            
         }
+
     }
     
-//    func restartGame() {
-//        run(popAction)
-//
-//        let newScene = GameScene(size: size)
-//        let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
-//        view?.presentScene(newScene, transition: transition)
-//    }
     
     func restartGame(stateClass: AnyClass) {
         run(popAction)

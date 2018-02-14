@@ -18,11 +18,17 @@ class TutorialState: GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        
+        setUpTutorial()
     }
     
     override func willExit(to nextState: GKState) {
-        
+        //Remove Tutorial
+        scene.worldNode.enumerateChildNodes(withName: "Tutorial") { (node, stop) in
+            node.run(SKAction.sequence([
+            SKAction.fadeOut(withDuration: 0.5),
+            SKAction.removeFromParent()
+            ]))
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
@@ -31,5 +37,24 @@ class TutorialState: GKState {
     
     override func update(deltaTime seconds: TimeInterval) {
         
+    }
+    
+    func setUpTutorial() {
+        scene.setUpBackground()
+        scene.setUpForeground()
+        scene.setUpPlayer()
+        scene.setUpScoreLabel()
+        
+        let tutorial = SKSpriteNode(imageNamed: "Tutorial")
+        tutorial.position = CGPoint(x: scene.size.width * 0.5, y: scene.playableHeight * 0.4 + scene.playableStart)
+        tutorial.name = "Tutorial"
+        tutorial.zPosition = Layer.UI.rawValue
+        scene.worldNode.addChild(tutorial)
+        
+        let ready = SKSpriteNode(imageNamed: "Ready")
+        ready.position = CGPoint(x: scene.size.width * 0.5, y: scene.playableHeight * 0.7 + scene.playableStart)
+        ready.name = "Tutorial"
+        ready.zPosition = Layer.UI.rawValue
+        scene.worldNode.addChild(ready)
     }
 }

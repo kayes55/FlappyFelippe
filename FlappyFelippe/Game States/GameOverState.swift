@@ -12,6 +12,7 @@ import GameplayKit
 class GameOverState: GKState {
     unowned let scene: GameScene
     let hitGround = SKAction.playSoundFileNamed("hitGround.wav", waitForCompletion: false)
+    let animationDelay = 0.3
     
     init(scene: SKScene) {
         self.scene = scene as! GameScene
@@ -94,5 +95,46 @@ class GameOverState: GKState {
         share.position = CGPoint.zero
         share.zPosition = Layer.UI.rawValue
         shareButton.addChild(share)
+        
+        //Add Some Juice
+        gameOver.setScale(0)
+        gameOver.alpha = 0
+        let group = SKAction.group([
+                SKAction.fadeIn(withDuration: animationDelay),
+                SKAction.scale(to: 1.0, duration: animationDelay)
+        ])
+        
+        group.timingMode = .easeInEaseOut
+        gameOver.run(SKAction.sequence([
+                SKAction.wait(forDuration: animationDelay),
+                group
+        ]))
+        
+        scoreCard.position = CGPoint(x: scene.size.width * 0.5, y: -scoreCard.size.height/2)
+        let moveTo = SKAction.move(to: CGPoint(x:scene.size.width/2, y:scene.size.height/2), duration: animationDelay)
+        moveTo.timingMode = .easeInEaseOut
+        scoreCard.run(SKAction.sequence([
+            SKAction.wait(forDuration: animationDelay),
+            moveTo
+        ]))
+        
+        okButton.alpha = 0
+        shareButton.alpha = 0
+        let fadeIn = SKAction.sequence([
+            SKAction.wait(forDuration: animationDelay * 3),
+            SKAction.fadeIn(withDuration: animationDelay)
+        ])
+        okButton.run(fadeIn)
+        shareButton.run(fadeIn)
+        
+        let pops = SKAction.sequence([
+            SKAction.wait(forDuration: animationDelay),
+            scene.popAction,
+            SKAction.wait(forDuration: animationDelay),
+            scene.popAction,
+            SKAction.wait(forDuration: animationDelay),
+            scene.popAction
+        ])
+        scene.run(pops)
     }
 }

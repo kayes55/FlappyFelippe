@@ -27,7 +27,6 @@ class GameViewController: UIViewController {
             if skView.scene == nil {
                 // Create the secene
                 aspectRatio = skView.bounds.size.height / skView.bounds.size.width
-//                let scene = GameScene(size: CGSize(width: 320.0, height: 320.0 * aspectRatio))
                 let scene = GameScene(size: CGSize(width: 320.0, height: 320.0 * aspectRatio), stateClass: MainMenuState.self)
 
                 skView.showsFPS = true

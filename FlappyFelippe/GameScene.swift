@@ -82,14 +82,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         addChild(worldNode)
-        // setUpBackground()
-        // setUpForeground()
-        // setUpPlayer()
-        // setUpScoreLabel()
-        
-//        startSpawning()
-        
-//        gameState.enter(PlayingState.self)
         
         gameState.enter(initialState)
     }
@@ -159,7 +151,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let forEverSpawn = SKAction.repeatForever(spawnSequence)
         let overallSequence = SKAction.sequence([firstDelay, forEverSpawn])
         
-//        run(overallSequence)
         run(overallSequence, withKey: "spawn")
     }
     
@@ -188,7 +179,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let bottomObstacleMin = (playableStart - bottomObstacle.size.height/2) + playableHeight * bottomObstacleMinFraction
         let bottomObstacleMax = (playableStart - bottomObstacle.size.height/2) + playableHeight * bottomObstacleMaxFraction
         
-        //let randomValue = CGFloat.random(min: bottomObstacleMin, max: bottomObstacleMax)
         
         //Using GamePlayKit's randomization
         let randomSource = GKARC4RandomSource()
@@ -271,7 +261,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lastUpdateTimeInterval = currentTime
         
         //Begin Updates
-//        updateForeground()
         gameState.update(deltaTime: deltaTime)
         
         //Pre-Entity Updates

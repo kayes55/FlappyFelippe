@@ -10,6 +10,8 @@
 		E54A07F82033687100ACFDA3 /* PlayingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A07F72033687100ACFDA3 /* PlayingState.swift */; };
 		E54A07FA2033687D00ACFDA3 /* FallingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A07F92033687D00ACFDA3 /* FallingState.swift */; };
 		E54A07FC2033688900ACFDA3 /* GameOverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A07FB2033688900ACFDA3 /* GameOverState.swift */; };
+		E56275262034CA6A00F6F8D5 /* MainMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56275252034CA6A00F6F8D5 /* MainMenuState.swift */; };
+		E56275282034CAA100F6F8D5 /* TutorialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56275272034CAA100F6F8D5 /* TutorialState.swift */; };
 		E5AF547A20320770008B5B8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF547920320770008B5B8F /* AppDelegate.swift */; };
 		E5AF547E20320770008B5B8F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5AF547D20320770008B5B8F /* Actions.sks */; };
 		E5AF548020320770008B5B8F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF547F20320770008B5B8F /* GameScene.swift */; };
@@ -50,6 +52,8 @@
 		E54A07F72033687100ACFDA3 /* PlayingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingState.swift; sourceTree = "<group>"; };
 		E54A07F92033687D00ACFDA3 /* FallingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingState.swift; sourceTree = "<group>"; };
 		E54A07FB2033688900ACFDA3 /* GameOverState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverState.swift; sourceTree = "<group>"; };
+		E56275252034CA6A00F6F8D5 /* MainMenuState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuState.swift; sourceTree = "<group>"; };
+		E56275272034CAA100F6F8D5 /* TutorialState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialState.swift; sourceTree = "<group>"; };
 		E5AF547620320770008B5B8F /* FlappyFelippe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyFelippe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5AF547920320770008B5B8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5AF547D20320770008B5B8F /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				E54A07F72033687100ACFDA3 /* PlayingState.swift */,
 				E54A07F92033687D00ACFDA3 /* FallingState.swift */,
 				E54A07FB2033688900ACFDA3 /* GameOverState.swift */,
+				E56275252034CA6A00F6F8D5 /* MainMenuState.swift */,
+				E56275272034CAA100F6F8D5 /* TutorialState.swift */,
 			);
 			path = "Game States";
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				E5AF54B320320BAD008B5B8F /* CGPoint+Extensions.swift in Sources */,
 				E5AF54BC20320BAD008B5B8F /* SKTTimingFunctions.swift in Sources */,
 				E5AF54BB20320BAD008B5B8F /* SKTEffects.swift in Sources */,
+				E56275262034CA6A00F6F8D5 /* MainMenuState.swift in Sources */,
 				E5AF54B720320BAD008B5B8F /* SKAction+SpecialEffects.swift in Sources */,
 				E5AF54B420320BAD008B5B8F /* CGVector+Extensions.swift in Sources */,
 				E5AF54B620320BAD008B5B8F /* SKAction+Extensions.swift in Sources */,
@@ -334,6 +341,7 @@
 				E5AF54BA20320BAD008B5B8F /* SKTAudio.swift in Sources */,
 				E5AF54B220320BAD008B5B8F /* CGFloat+Extensions.swift in Sources */,
 				E54A07FC2033688900ACFDA3 /* GameOverState.swift in Sources */,
+				E56275282034CAA100F6F8D5 /* TutorialState.swift in Sources */,
 				E5AF54BD20320BAD008B5B8F /* Vector3.swift in Sources */,
 				E5AF54CC2032294F008B5B8F /* MovementComponent.swift in Sources */,
 				E54A07F82033687100ACFDA3 /* PlayingState.swift in Sources */,

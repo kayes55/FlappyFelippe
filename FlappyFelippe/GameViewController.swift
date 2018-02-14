@@ -10,11 +10,13 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
 
+var aspectRatio: CGFloat = 0.0
+class GameViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         
     }
     
@@ -24,16 +26,17 @@ class GameViewController: UIViewController {
         if let skView = self.view as? SKView {
             if skView.scene == nil {
                 // Create the secene
-                let aspectRation = skView.bounds.size.height / skView.bounds.size.width
-                let scene = GameScene(size: CGSize(width: 320.0, height: 320.0 * aspectRation))
-                
+                aspectRatio = skView.bounds.size.height / skView.bounds.size.width
+//                let scene = GameScene(size: CGSize(width: 320.0, height: 320.0 * aspectRatio))
+                let scene = GameScene(size: CGSize(width: 320.0, height: 320.0 * aspectRatio), stateClass: MainMenuState.self)
+
                 skView.showsFPS = true
                 skView.showsNodeCount = true
                 skView.showsPhysics = true
                 skView.ignoresSiblingOrder = true
-                
+
                 scene.scaleMode = .aspectFill
-                
+
                 skView.presentScene(scene)
             }
         }

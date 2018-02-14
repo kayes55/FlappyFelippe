@@ -47,12 +47,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let firstSpawnDelay:TimeInterval = 1.75
     let everySpawnDelay:TimeInterval = 1.5
     
-    //MARK: SetUp Game Machine
+    //MARK: SetUp Game State Machine
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
+        MainMenuState(scene: self),
+        TutorialState(scene: self),
         PlayingState(scene: self),
         FallingState(scene: self),
         GameOverState(scene: self)
-        ])
+    ])
     
     var scoreLabel: SKLabelNode!
     var score = 0
@@ -63,20 +65,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let popAction = SKAction.playSoundFileNamed("pop.wav", waitForCompletion: false)
     let coinAction = SKAction.playSoundFileNamed("coin.wav", waitForCompletion: false)
     
+    var initialState: AnyClass
+    
+    init(size: CGSize, stateClass: AnyClass) {
+        initialState = stateClass
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMove(to view: SKView) {
         
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
         
         addChild(worldNode)
-        setUpBackground()
-        setUpForeground()
-        setUpPlayer()
-        setUpScoreLabel()
+        // setUpBackground()
+        // setUpForeground()
+        // setUpPlayer()
+        // setUpScoreLabel()
         
 //        startSpawning()
         
-        gameState.enter(PlayingState.self)
+//        gameState.enter(PlayingState.self)
+        
+        gameState.enter(initialState)
     }
     
     //MARK: - SetUp Methods
@@ -124,7 +139,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setUpScoreLabel() {
         scoreLabel = SKLabelNode(fontNamed: fontName)
-        scoreLabel.position = CGPoint(x: (view?.frame.width)!/2, y: (view?.frame.height)! - 100)
+        //must give it a position
+        scoreLabel.position = CGPoint(x: 160.0, y: 320 * aspectRatio)
         scoreLabel.fontColor = SKColor(red: 101.0/255.0, green: 71.0/255.0, blue: 73.0/255.0, alpha: 1.0)
         scoreLabel.verticalAlignmentMode = .top
         scoreLabel.zPosition = Layer.UI.rawValue
@@ -207,14 +223,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if gameState.currentState is PlayingState {
             player.movementComponent.applyImpulse()
         } else if gameState.currentState is GameOverState {
-            restartGame()
+            //restartGame()
         }
     }
     
-    func restartGame() {
+//    func restartGame() {
+//        run(popAction)
+//
+//        let newScene = GameScene(size: size)
+//        let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
+//        view?.presentScene(newScene, transition: transition)
+//    }
+    
+    func restartGame(stateClass: AnyClass) {
         run(popAction)
         
-        let newScene = GameScene(size: size)
+        let newScene = GameScene(size: size, stateClass: stateClass)
         let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
         view?.presentScene(newScene, transition: transition)
     }

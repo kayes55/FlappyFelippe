@@ -30,6 +30,9 @@ class Player: GKEntity {
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)
         
+        //MARK: applying initial Impulse
+        movementComponent.applyInitialImpulse()
+        
         //create textures and add to player
         var textures: Array<SKTexture> = []
         for i in 0..<numberOfFrames {

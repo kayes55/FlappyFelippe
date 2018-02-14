@@ -12,6 +12,7 @@
 		E54A07FC2033688900ACFDA3 /* GameOverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A07FB2033688900ACFDA3 /* GameOverState.swift */; };
 		E56275262034CA6A00F6F8D5 /* MainMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56275252034CA6A00F6F8D5 /* MainMenuState.swift */; };
 		E56275282034CAA100F6F8D5 /* TutorialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56275272034CAA100F6F8D5 /* TutorialState.swift */; };
+		E562752A2034F1E900F6F8D5 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56275292034F1E900F6F8D5 /* AnimationComponent.swift */; };
 		E5AF547A20320770008B5B8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF547920320770008B5B8F /* AppDelegate.swift */; };
 		E5AF547E20320770008B5B8F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E5AF547D20320770008B5B8F /* Actions.sks */; };
 		E5AF548020320770008B5B8F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF547F20320770008B5B8F /* GameScene.swift */; };
@@ -54,6 +55,7 @@
 		E54A07FB2033688900ACFDA3 /* GameOverState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverState.swift; sourceTree = "<group>"; };
 		E56275252034CA6A00F6F8D5 /* MainMenuState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuState.swift; sourceTree = "<group>"; };
 		E56275272034CAA100F6F8D5 /* TutorialState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialState.swift; sourceTree = "<group>"; };
+		E56275292034F1E900F6F8D5 /* AnimationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
 		E5AF547620320770008B5B8F /* FlappyFelippe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyFelippe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5AF547920320770008B5B8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5AF547D20320770008B5B8F /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				E5AF54C9203223B4008B5B8F /* SpriteComponent.swift */,
 				E5AF54CB2032294F008B5B8F /* MovementComponent.swift */,
+				E56275292034F1E900F6F8D5 /* AnimationComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				E5AF54BB20320BAD008B5B8F /* SKTEffects.swift in Sources */,
 				E56275262034CA6A00F6F8D5 /* MainMenuState.swift in Sources */,
 				E5AF54B720320BAD008B5B8F /* SKAction+SpecialEffects.swift in Sources */,
+				E562752A2034F1E900F6F8D5 /* AnimationComponent.swift in Sources */,
 				E5AF54B420320BAD008B5B8F /* CGVector+Extensions.swift in Sources */,
 				E5AF54B620320BAD008B5B8F /* SKAction+Extensions.swift in Sources */,
 				E5AF54C8203223A4008B5B8F /* PlayerEntity.swift in Sources */,

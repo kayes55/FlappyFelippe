@@ -34,6 +34,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameSceneDelegate: GameSceneDelegate
     
+    let appStoreID = 1295004121
+    
     let worldNode = SKNode()
     
     var playableStart:CGFloat = 0.0
@@ -218,19 +220,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: - Game Play
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //modifying touch events
         
-        switch gameState.currentState {
-        case is MainMenuState:
-            restartGame(stateClass: TutorialState.self)
-        case is TutorialState:
-            gameState.enter(PlayingState.self)
-        case is PlayingState:
-            player.movementComponent.applyImpulse(lastUpdateTime: lastUpdateTimeInterval)
-        case is GameOverState:
-            restartGame(stateClass: TutorialState.self)
-        default:
-            break
+        if let touch = touches.first {
+            let touchLocation = touch.location(in: self)
             
+            switch gameState.currentState {
+            case is MainMenuState:
+                restartGame(stateClass: TutorialState.self)
+            case is TutorialState:
+                gameState.enter(PlayingState.self)
+            case is PlayingState:
+                player.movementComponent.applyImpulse(lastUpdateTime: lastUpdateTimeInterval)
+            case is GameOverState:
+                if touchLocation.x < size.width * 0.6 {
+                    restartGame(stateClass: TutorialState.self)
+                } else {
+                    shareScore()
+                }
+                
+            default:
+                break
+            }
         }
 
     }
@@ -308,5 +319,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+    }
+    
+    //MARK: Extras
+    
+    func shareScore() {
+        let urlString = "https://itunes.apple.com/id/app/add-text-on-video-editor-cam/id\(appStoreID)?mt=8"
+        let url = NSURL(string: urlString)
+        
+        let screenShot = gameSceneDelegate.screenShot()
+        let initialTextScreen = "OMG! I Scored \(score/2) Points in Flappy Felipe!"
+        gameSceneDelegate.shareString(string: initialTextScreen, url: url!, image: screenShot)
     }
 }

@@ -30,19 +30,40 @@ class AnimationComponent: GKComponent {
             if player.movementAllowed {
                 startAnimation()
             } else {
-                stopAnimation()
+                stopAnimation(name: "Flap")
             }
         }
     }
     
+    
+    func startWobble() {
+        let moveUp = SKAction.moveBy(x: 0, y: 10, duration: 0.4)
+        moveUp.timingMode = .easeInEaseOut
+        let moveDown = moveUp.reversed()
+        let sequence = SKAction.sequence([moveUp, moveDown])
+        let repeatWobble = SKAction.repeatForever(sequence)
+        spriteComponent.node.run(repeatWobble, withKey: "Wobble")
+        
+        let flapWings = SKAction.animate(with: textures, timePerFrame: 0.07)
+        let repeatFlap = SKAction.repeatForever(flapWings)
+        spriteComponent.node.run(repeatFlap, withKey: "Wobble-flap")
+    }
+    
+    func stopWobble() {
+        stopAnimation(name: "Wobble")
+        stopAnimation(name: "Wobble-flap")
+    }
+    
+    //Modifying StartAnimation & stopAnimation methods
     func startAnimation() {
-        if !spriteComponent.node.hasActions() {
+        if (spriteComponent.node.action(forKey: "Flap") == nil) {
             let playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.07)
-            spriteComponent.node.run(SKAction.repeatForever(playerAnimation))
+            let repeatAction = SKAction.repeatForever(playerAnimation)
+            spriteComponent.node.run(repeatAction, withKey: "Flap")
         }
     }
     
-    func stopAnimation() {
-        spriteComponent.node.removeAllActions()
+    func stopAnimation(name: String) {
+        spriteComponent.node.removeAction(forKey: name)
     }
 }

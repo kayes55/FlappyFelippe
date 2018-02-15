@@ -23,6 +23,9 @@ class PlayingState: GKState {
         scene.player.movementAllowed = true
         
         scene.player.animationComponent.startAnimation()
+        
+        //MARK: Stop wobble
+        scene.player.animationComponent.stopWobble()
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

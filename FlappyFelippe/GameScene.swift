@@ -140,6 +140,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         worldNode.addChild(playerNode)
         
         player.movementComponent.playableStart = playableStart
+        //MARK: Adding wobble
+        player.animationComponent.startWobble()
     }
     
     func setUpScoreLabel() {

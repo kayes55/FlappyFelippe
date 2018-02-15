@@ -29,9 +29,9 @@ class GameViewController: UIViewController, GameSceneDelegate {
                 aspectRatio = skView.bounds.size.height / skView.bounds.size.width
                 let scene = GameScene(size: CGSize(width: 320.0, height: 320.0 * aspectRatio), stateClass: MainMenuState.self, delegate: self)
 
-                skView.showsFPS = true
-                skView.showsNodeCount = true
-                skView.showsPhysics = true
+                skView.showsFPS = false
+                skView.showsNodeCount = false
+                skView.showsPhysics = false
                 skView.ignoresSiblingOrder = true
 
                 scene.scaleMode = .aspectFill

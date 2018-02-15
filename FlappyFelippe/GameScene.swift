@@ -24,7 +24,15 @@ struct PhysicsCategory {
     static let Ground: UInt32 =     0b100   //4
     
 }
+
+protocol GameSceneDelegate {
+    func screenShot() -> UIImage
+    func shareString(string: String, url: NSURL, image: UIImage)
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var gameSceneDelegate: GameSceneDelegate
     
     let worldNode = SKNode()
     
@@ -67,7 +75,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var initialState: AnyClass
     
-    init(size: CGSize, stateClass: AnyClass) {
+    init(size: CGSize, stateClass: AnyClass, delegate: GameSceneDelegate) {
+        //adding delegate to init 
+        gameSceneDelegate = delegate
         initialState = stateClass
         super.init(size: size)
     }
@@ -132,7 +142,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func setUpScoreLabel() {
         scoreLabel = SKLabelNode(fontNamed: fontName)
         //must give it a position
-        scoreLabel.position = CGPoint(x: 160.0, y: 320 * aspectRatio)
+        scoreLabel.position = CGPoint(x: 160, y: 320.0 * aspectRatio)
         scoreLabel.fontColor = SKColor(red: 101.0/255.0, green: 71.0/255.0, blue: 73.0/255.0, alpha: 1.0)
         scoreLabel.verticalAlignmentMode = .top
         scoreLabel.zPosition = Layer.UI.rawValue
@@ -228,8 +238,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func restartGame(stateClass: AnyClass) {
         run(popAction)
-        
-        let newScene = GameScene(size: size, stateClass: stateClass)
+        //changing the init method
+        let newScene = GameScene(size: size, stateClass: stateClass, delegate: gameSceneDelegate)
         let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
         view?.presentScene(newScene, transition: transition)
     }

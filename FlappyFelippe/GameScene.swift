@@ -15,6 +15,7 @@ enum Layer: CGFloat {
     case Foreground
     case Player
     case UI
+    case Flash
 }
 
 struct PhysicsCategory {

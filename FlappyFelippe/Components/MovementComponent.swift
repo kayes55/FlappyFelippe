@@ -26,6 +26,8 @@ class MovementComponent: GKComponent {
     var lastTouchTime: TimeInterval = 0
     var lastTouchY: CGFloat = 0.0
     
+    let flapAction = SKAction.playSoundFileNamed("flapping.wav", waitForCompletion: false)
+    
     init(entity: GKEntity) {
         self.spriteComponent = entity.component(ofType: SpriteComponent.self)
         
@@ -40,8 +42,21 @@ class MovementComponent: GKComponent {
         velocity = CGPoint(x: 0, y: impulse * 2)
     }
     
+    //adding Sombrero an impulse
+    func moveSombrero() {
+        if let player = entity as? Player {
+            let moveUp = SKAction.moveBy(x: 0, y: 12, duration: 0.15)
+            moveUp.timingMode = .easeInEaseOut
+            let moveDown = moveUp.reversed()
+            player.sombrero.run(SKAction.sequence([moveUp, moveDown]))
+        }
+    }
+    
     //MARK: Modifying applyImpulse
     func applyImpulse(lastUpdateTime: TimeInterval) {
+        spriteComponent.node.run(flapAction)
+        moveSombrero()
+        
         velocity = CGPoint(x: 0.0, y: impulse)
         
         angularVelocity = velocityModifier.degreesToRadians()

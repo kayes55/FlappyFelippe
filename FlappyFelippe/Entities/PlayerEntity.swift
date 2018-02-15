@@ -20,12 +20,17 @@ class Player: GKEntity {
     //temporary flag; will be replaced with player state machine later
     var movementAllowed: Bool = false
     
+    let sombrero = SKSpriteNode(imageNamed: "Sombrero")
+    
     init(imageName: String) {
         super.init()
         
         let texture = SKTexture(imageNamed: imageName)
         spriteComponent = SpriteComponent(entity: self, texture: texture, size: texture.size())
         addComponent(spriteComponent)
+        
+        sombrero.position = CGPoint(x: 31 - sombrero.size.width/2, y: 29 - sombrero.size.height/2)
+        spriteComponent.node.addChild(sombrero)
         
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)

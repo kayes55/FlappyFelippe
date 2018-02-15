@@ -227,7 +227,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             switch gameState.currentState {
             case is MainMenuState:
-                restartGame(stateClass: TutorialState.self)
+                if touchLocation.y < size.height * 0.15 {
+                    learn()
+                } else if touchLocation.x < size.width * 0.6 {
+                    restartGame(stateClass: TutorialState.self)
+                } else {
+                    rateApp()
+                }
             case is TutorialState:
                 gameState.enter(PlayingState.self)
             case is PlayingState:
@@ -330,5 +336,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let screenShot = gameSceneDelegate.screenShot()
         let initialTextScreen = "OMG! I Scored \(score/2) Points in Flappy Felipe!"
         gameSceneDelegate.shareString(string: initialTextScreen, url: url!, image: screenShot)
+    }
+    
+    func rateApp() {
+        let urlString = "https://itunes.apple.com/id/app/add-text-on-video-editor-cam/id\(appStoreID)?mt=8"
+        let url = NSURL(fileURLWithPath: urlString)
+        UIApplication.shared.canOpenURL(url as URL)
+    }
+    
+    func learn() {
+        let urlString = "https://raywenderlich.com/flappy-felipe"
+        let url = NSURL(fileURLWithPath: urlString)
+        UIApplication.shared.canOpenURL(url as URL)
     }
 }

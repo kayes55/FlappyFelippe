@@ -70,7 +70,7 @@ class GameViewController: UIViewController, GameSceneDelegate {
         return image!
     }
     
-    func shareString(string: String, url: NSURL, image: UIImage) {
+    func shareString(string: String, url: URL, image: UIImage) {
         let vc = UIActivityViewController(activityItems: [string, url, image], applicationActivities: nil)
         self.present(vc, animated: true, completion: nil)
     }

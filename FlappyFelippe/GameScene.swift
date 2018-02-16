@@ -28,7 +28,7 @@ struct PhysicsCategory {
 
 protocol GameSceneDelegate {
     func screenShot() -> UIImage
-    func shareString(string: String, url: NSURL, image: UIImage)
+    func shareString(string: String, url: URL, image: UIImage)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -334,7 +334,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func shareScore() {
         let urlString = "https://itunes.apple.com/id/app/add-text-on-video-editor-cam/id\(appStoreID)?mt=8"
-        let url = NSURL(string: urlString)
+        let url = URL(string: urlString)
         
         let screenShot = gameSceneDelegate.screenShot()
         let initialTextScreen = "OMG! I Scored \(score/2) Points in Flappy Felipe!"
@@ -343,13 +343,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func rateApp() {
         let urlString = "https://itunes.apple.com/id/app/add-text-on-video-editor-cam/id\(appStoreID)?mt=8"
-        let url = NSURL(fileURLWithPath: urlString)
-        UIApplication.shared.canOpenURL(url as URL)
+        let url = URL(string: urlString)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
     
     func learn() {
-        let urlString = "https://raywenderlich.com/flappy-felipe"
-        let url = NSURL(fileURLWithPath: urlString)
-        UIApplication.shared.canOpenURL(url as URL)
+        let urlString = "https://www.raywenderlich.com/169004/calayer-tutorial-ios-getting-started"
+        let url = URL(string: urlString)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
 }

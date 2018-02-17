@@ -337,8 +337,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let url = URL(string: urlString)
         
         let screenShot = gameSceneDelegate.screenShot()
+
         let initialTextScreen = "OMG! I Scored \(score/2) Points in Flappy Felipe!"
         gameSceneDelegate.shareString(string: initialTextScreen, url: url!, image: screenShot)
+
     }
     
     func rateApp() {

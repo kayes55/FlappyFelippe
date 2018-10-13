@@ -346,12 +346,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func rateApp() {
         let urlString = "https://itunes.apple.com/id/app/add-text-on-video-editor-cam/id\(appStoreID)?mt=8"
         let url = URL(string: urlString)
-        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(url!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
     
     func learn() {
         let urlString = "https://www.raywenderlich.com/169004/calayer-tutorial-ios-getting-started"
         let url = URL(string: urlString)
-        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(url!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
